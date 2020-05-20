@@ -34,18 +34,27 @@ function listening() {
 }
 
 // GET route
-app.get('/all', (request, response) => {
-  response.send(projectData);
+app.get('/all', function (req, res) {
+  res.send((projectData));
 });
 
-// POST route
-const data = [];
+//POST the data to the projectData array
+app.post('/addData', addData);
 
-app.post('/postData', postData);
-function postData(req, res) {
-  projectData.date = req.body.date;
-  projectData.temperature = req.body.temp;
-  projectData.feelings = req.body.feelings;
-  console.log('pojectData');
-  projectData.push(req.body);
-};
+function addData(req, res) {
+  // These are three specific pieces of data the POST route will anticipate receiving 
+  newEntry = {
+    temperature: req.body.temperature,
+    date: req.body.date,
+    userResponse: req.body.userResponse
+  }
+
+  //Add data recieved from req.body to the app end point
+  projectData = [];
+
+  projectData.push(newEntry);
+  res.send(projectData);
+  console.log(projectData);
+}
+
+
