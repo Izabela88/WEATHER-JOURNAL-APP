@@ -33,25 +33,26 @@ const getWeather = async (baseUrl, newZip, apiKey) => {
 }
 
 // //POST Request
-// const postCity = async (url = '', data = {}) => {
-//   const response = await fetch(url, {
-//     method: 'POST',
-//     credentials: 'same-origin',
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//     body: JSON.stringify(data),
-//   });
-//   try {
-//     const newData = await response.json();
-//     console.log(newData);
-//     return newData;
-//   } catch (error) {
-//     console.log(error("error"));
-//   }
-// }
+const postData = async (url = '', data = {}) => {
+  console.log(data)
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  try {
+    const newData = await response.json();
+    console.log(newData);
+    return newData;
+  } catch (error) {
+    console.log(error("error"));
+  }
+}
 
-
+postData('/addData', { answer: 42 });
 
 
 

@@ -11,14 +11,22 @@ body {
 
 #app {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  height: 60vh;
-  background: #fff;
-  color: #f0d43a;
+  align-content: center;
+  height: 70vh;
+  max-width: 1500px;
+  background: #e2dddd;
+  color: #0e2d96;
   grid-gap: 1em;
   font-size: 20px;
   font-family: "Oswald", sans-serif;
+  padding: 1rem;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
 }
 
 .holder {
@@ -36,15 +44,19 @@ body {
 }
 
 #entryHolder {
+  color: #0e2d96;
 }
 
 #date {
+  color: #0e2d96;
 }
 
 #temp {
+  color: #0e2d96;
 }
 
 #content {
+  color: #0e2d96;
 }
 
 .headline {
@@ -71,7 +83,7 @@ input {
   height: 60px;
   width: 470px;
   background: #e7eaeb;
-  color: #f0d43a;
+  color: #0e2d96;
   font-size: 20px;
   font-family: "Oswald", sans-serif;
   border: 1px solid #333;
@@ -106,7 +118,7 @@ h1 {
 }
 
 textarea {
-  color: #f0d43a;
+  color: #0e2d96;
   border: 1px solid #333;
   width: 470px;
   background: #e7eaeb;
