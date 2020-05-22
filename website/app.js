@@ -8,17 +8,24 @@ const buttonClick = document.querySelector('#generate');
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 
-
-// Event listener
+//Chained promises
 buttonClick.addEventListener('click', performAction);
 
 function performAction(e) {
   const newZip = document.querySelector('#zip').value;
-
+  const content = document.querySelector('#feelings').value;
+  console.log(newZip, content)
   getWeather(baseUrl, newZip, apiKey)
+    .then(function (data) {
+      postData('/addData', {
+        temperature: data.main.temp, date: newDate, content: content
+      }).then(
+        updateUI()
+      )
+    })
 }
 
-// GET Request
+//Async GET
 const getWeather = async (baseUrl, newZip, apiKey) => {
 
   const res = await fetch(baseUrl + newZip + apiKey)
@@ -32,7 +39,7 @@ const getWeather = async (baseUrl, newZip, apiKey) => {
   }
 }
 
-// //POST Request
+// Async POST
 const postData = async (url = '', data = {}) => {
   console.log(data)
   const response = await fetch(url, {
@@ -52,7 +59,16 @@ const postData = async (url = '', data = {}) => {
   }
 }
 
-postData('/addData', { answer: 42 });
-
-
-
+// Update UI
+const updateUI = async () => {
+  const request = await fetch('/all')
+  try {
+    const allData = await request.json()
+    console.log(allData);
+    document.querySelector('#date').innerHTML = "Date: " + allData[0].date;
+    document.querySelector('#temp').innerHTML = "Current Temperature: " + allData[0].temperature;
+    document.querySelector('#content').innerHTML = "I am feeling today: " + allData[0].content;
+  } catch (error) {
+    console.log("error", error)
+  }
+}

@@ -1,5 +1,5 @@
-// // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+// Setup empty JS object to act as endpoint for all routes
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -33,26 +33,31 @@ function listening() {
   console.log(`running on localhost: ${port}`);
 }
 
-// GET route
-app.get('/all', function (req, res) {
-  res.send((projectData));
-});
+const weatherData = [];
 
-//POST the data to the projectData array
-projectData = [];
+// GET route
+app.get('/all', getData)
+
+function getData(req, res) {
+  res.send(weatherData)
+  console.log(weatherData);
+}
+
+//POST route
 app.post('/addData', addData);
 
 function addData(req, res) {
+  console.log(req.body)
   // These are three specific pieces of data the POST route will anticipate receiving 
   newEntry = {
     temperature: req.body.temperature,
     date: req.body.date,
-    feelings: req.body.feelings
+    content: req.body.content
   }
 
   //Add data recieved from req.body to the app end point
-  projectData.push(newEntry);
-  res.send(projectData);
-  console.log(projectData);
+  weatherData.push(newEntry);
+  res.send(weatherData);
+  console.log(weatherData);
 }
 
